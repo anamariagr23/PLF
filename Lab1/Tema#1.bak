@@ -1,0 +1,92 @@
+#lang racket
+
+;;; Groza Anamaria
+;;; Data: 02.03.2023
+;;; Tema1: Familiarizare cu limbajul Racket
+
+;;; P#1 Definiti o functie even-nb-divisible-by-7 care se comporta astfel:
+
+;;; ( even-nb-divisible-by-7 7 )
+;;; #t
+;;; ( even-nb-divisible-by-7 0 )
+;;; #t
+;;; ( even-nb-divisible-by-7 10 )
+;;; #t
+;;; ( even-nb-divisible-by-7 11 )
+;;; #f
+;;; ( even-nb-divisible-by-7 14 )
+;;; #t
+
+;;; Verific daca am primit ca parametru un intreg
+;;; In cazul in care numarul primit ca parametru este divizibil cu 7, functia returneaza true
+;;; in exemplul cu 10 si 0 ultima cifra este 0,cand ultima cifra este 0 se returneaza true
+;;; daca nu e divizibil cu 7 si nici ultima cifra nu este 0 , atunci se returneaza false
+
+
+(define (even-nb-divisible-by-7 a)
+  (if (and(integer? a)(>= 0)) ; Verific daca am primit ca parametru un intreg
+  (cond ((or (eq? (remainder a 7) 0) (eq? (remainder a 10) 0)) #t) ; verific daca se divide cu 7 sau ultima cifra e 0
+        (#t #f) )
+  (quote "argumentul nu este un nr. intreg")
+  )
+
+)
+
+(quote "Ex1:")
+(even-nb-divisible-by-7 77) ;#t
+(even-nb-divisible-by-7 10) ;#t
+(even-nb-divisible-by-7 0) ;#t
+(even-nb-divisible-by-7 11) ;f
+(even-nb-divisible-by-7 4.9) ;f
+
+;;; P#2 Definiti o functie care primeste doi parametri si returneaza true daca prima
+;;; lista e mai lunga decat a doua.
+
+;;; Verific daca argumentele primite sunt liste
+;;; compar lungimile listelor si returnez true daca prima lista are lungime mai mare , false in caz contrar
+
+
+(define (longer-listp list1 list2)
+  
+  (if (and (list? list1) (list? list2)) ; Verific daca argumentele primite sunt liste
+      (if (> (length list1) (length list2)) #t #f) ;compar lungimile
+      (quote "argumentele nu sunt liste"))
+)
+
+(quote "Ex2:")
+(longer-listp '(1 2 3) '(5 6)) ;#t
+(longer-listp '(1 2 3) '(5 6 9 10 11)) ;#f
+(longer-listp 9 7 ) ;"argumentele nu sunt liste"
+
+
+;;; P#3 Utilizati car, cdr, si combinatii ale lor pentru a returna:
+
+;;; LISTA de input: (A (L K (P O) ) I )
+;;; rezultat: O
+;;; respectiv (O)
+
+(car(cdr(car(cdr(cdr(car(cdr '(A (L K (P O)) I))))))))
+(cdr(car(cdr(cdr(car(cdr '(A (L K (P O)) I)))))))
+
+;;; LISTA de input: (A (( L K) (P O)) I)
+;;; rezultat: O
+;;; respectiv (k)
+
+(car(cdr(car(cdr(car(cdr'(A (( L K) (P O)) I)))))))
+(cdr(car(car(cdr '(A (( L K) (P O)) I)))))
+
+;;; LISTA de input: (A (B C . D) (HELLO TODAY) I AM HERE)
+;;; rezultat: HELLO
+;;; respectiv AM
+
+(car(car(cdr(cdr ' (A (B C . D) (HELLO TODAY) I AM HERE)))))
+(car(cdr(cdr(cdr(cdr '(A (B C . D) (HELLO TODAY) I AM HERE))))))
+
+;;; P#4 Definiti o funcție care primește 2 perechi de numere (f1, f2) si (f3, f4),
+;;; desemnate de membrul 1 si membrul 2 al acestora, precum și un operator (unul din operatorii +, -, * sau /).
+;;; (define (calc op f1 f2 f3 f4) ;; )
+
+;;; Funcția va returna o lista, desemnând o pereche (f5,f6) , rezultatul operației op aplicată celor 2 perechi.
+
+
+

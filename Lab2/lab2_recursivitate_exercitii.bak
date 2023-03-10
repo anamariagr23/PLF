@@ -1,0 +1,35 @@
+#lang racket
+
+(define (factorial n)
+  (cond ((< n 0) #f) ((or (eq? n 0) (eq? n 1)) 1)
+        (#t (* n (factorial(- n 1))))))
+
+;;; ridicare la putere
+;nu merge
+#|
+(define (x_la_y x y)
+  (if (and (eq? y 0) (not(eq? x 0)))
+      1
+  (if (and (eq? x 0) (> y 0))
+      0
+  (if (and
+|#
+
+
+;;; lungimea unei liste
+(define (len-list l)
+  (if (null? l)
+      0
+  (+ 1 (len-list (cdr l)))))
+
+(len-list '( A B C))
+
+;;; numar de numere dintr-o lista
+(define (nmb-count l)
+  (if(null? l)
+     0
+  (if (number? (car l))
+      (+ 1 (nmb-count (cdr l)))
+  (nmb-count (cdr l)))))
+
+(nmb-count '(1 2 3 'a 4))
