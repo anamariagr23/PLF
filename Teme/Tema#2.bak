@@ -1,0 +1,89 @@
+#lang racket
+(require racket/trace)
+
+;;; Groza Anamaria
+;;; Data: 02.03.2023
+;;; Tema2: Familiarizare cu conceptul de recursivitate in Racket.
+
+;;;P#1 Definiti o functie pentru concatenarea a doua liste. Nu se va folosi append.
+
+;;;> (conc ‘(1 2 3) ‘(4 5 6))
+;;;‘(1 2 3 4 5 6)
+;;;> (conc ‘(1 2 3) ‘())
+;;;‘(1 2 3)
+;;;> (conc ‘(1 2 3) ‘a)
+;;;Eroare! argumentul 2 nu este o lista
+
+;;;Verific daca argumentele sunt liste
+;;;daca lista 1 e vida atunci returnez lista 2
+;;;altfel iau capul listei 2 si apelez recursiv pentru coada listei 1 si lista 2
+;;;lista 1 se va goli la un moment dat si va fi returnata lista 2
+;;; la intoarcerea apelului recursiv se vor adauga la lista 2 elementele pe care le-am scos din lista 1
+#|
+>(conc '(1 2 3) '(4 5 6))
+> (conc '(2 3) '(4 5 6))
+> >(conc '(3) '(4 5 6))
+> > (conc '() '(4 5 6))
+< < '(4 5 6)
+< <'(3 4 5 6)
+< '(2 3 4 5 6)
+<'(1 2 3 4 5 6)
+|#
+
+(define (conc list1 list2)
+  (if (and (list? list1) (list? list2));;;Verific daca argumentele sunt liste
+           (cond [(null? list1) list2];;;daca lista 1 e vida atunci returnez lista 2
+                 [else (cons (car list1)(conc (cdr list1) list2))])
+      (quote "Argumentele nu sunt liste")))
+                 
+
+(conc '(1 2 3) 'a)
+
+;;;P#2 Definiti o functie care calculeaza inversa unei liste.
+#|
+> (rev ‘(1 2 3))
+‘(3 2 1)
+> (rev ‘a)
+Eroare! Argumentul nu e o lista
+> (rev ‘(a))
+‘(a)
+|#
+
+;;;Verific daca argumentele sunt liste
+
+(define (rev lst [result null])
+  (if (list? lst)
+      (cond [(null? lst) result]  ; base case
+        [#t (rev (cdr lst)        ; recursive case
+                     (cons (car lst) result))])
+      (quote "Argumentul nu e lista")))
+
+(trace rev)
+(rev '(1 2 3 ))
+
+;;;P#3 Definiti o functie care extrage toate elementele impare dintr-o lista. Nu se va folosi predicatul odd?. Se va parcurge lista in adancime.
+
+;;; Pentru a parcurge lista in adancime am creat functia flatten ,
+;;;care face o lista care contine elementele listei primite si ale sublistelor
+;;;vom apela functia flatten in functia odds
+;;;in functia odds am verificat daca capul listei e numar, daca este si este si impar l-am adaugat la noua lista
+;;; de fapt numerele se vor adauga la revenirea din apelul recursiv
+
+
+(define (flatten lst)
+  (cond [(null? lst) null]
+        [(pair? (car lst)) (conc (flatten (car lst)) (flatten (cdr lst)))]
+        [else (cons (car lst) (flatten (cdr lst)))]))
+
+(define (odds lst)
+  (cond ((null? lst) '()) ; cazul de baza, lista e vida
+        ((number? (car lst))
+         (if (eq? (remainder (car lst) 2) 1)
+             (cons (car lst) (odds (cdr lst)))
+             (odds (cdr lst))))
+         (else (odds (cdr lst)))) ; se ignora elementele care nu sunt numere
+  )
+                         
+
+(trace odds)
+(odds (flatten '(1 2 (1 (2 3 4 a)) (4 5 6))))
