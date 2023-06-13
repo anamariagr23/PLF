@@ -1,0 +1,51 @@
+#lang racket
+(require racket/trace)
+
+;;; Groza Anamaria
+;;; Data: 20.03.2023
+;;; Tema2: Familiarizare cu conceptul de recursivitate in Racket, folosind acumulatori
+
+;;;P#1 Definiti o functie pentru concatenarea a doua liste. Nu se va folosi append.
+
+;;;> (conc ‘(1 2 3) ‘(4 5 6))
+;;;‘(1 2 3 4 5 6)
+;;;> (conc ‘(1 2 3) ‘())
+;;;‘(1 2 3)
+;;;> (conc ‘(1 2 3) ‘a)
+;;;Eroare! argumentul 2 nu este o lista
+
+;;;varianta cu acumulatori
+
+(define (conc lista1 lista2)
+  (conc-aux lista1 lista2 '())
+  )
+
+(define (conc-aux lista1 lista2 acc)
+   (if (and (list? lista1) (list? lista2));;;Verific daca argumentele sunt liste
+           (cond [(null? lista1) (cons acc lista2)]
+                 [else (conc-aux (cdr lista1) lista2 (cons acc (car lista1))) ])
+      (quote "Argumentele nu sunt liste")))
+(trace conc)
+(conc '(1 2 3) '(4 5 6))
+
+
+;;;P#2 Definiti o functie care calculeaza inversa unei liste.
+#|
+> (rev ‘(1 2 3))
+‘(3 2 1)
+> (rev ‘a)
+Eroare! Argumentul nu e o lista
+> (rev ‘(a))
+‘(a)
+|#
+(define (rev lista)
+  (rev-aux lista '())
+  )
+(define (rev-aux lista acc)
+   (if (list? lista)
+      (cond [(null? lista) acc]  ; base case
+        [#t (rev-aux (cdr lista)        ; recursive case
+                     (cons (car lista) acc))])
+      (quote "Argumentul nu e lista")))
+
+(rev '(1 2 3))

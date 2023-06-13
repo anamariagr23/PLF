@@ -1,0 +1,19 @@
+lab10.R
+-frecvente relative/absolute/cumulative
+-histograma
+-piechart
+-citire din fisiere
+-impartiire in clase
+
+formule.R
+-media, abatere standard , dispersie
+- generare numere
+- mediana, mod , quartile, centile
+
+Lab13.R
+-corelatie
+-citire din excel
+-dreapta de regresie
+
+Curs.R
+-probleme doar cu scor z , scor t si varianta

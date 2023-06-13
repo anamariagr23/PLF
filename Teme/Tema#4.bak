@@ -1,0 +1,17 @@
+#lang racket
+(require racket/trace)
+
+;;; Groza Anamaria
+;;; Data: 20.03.2023
+;;; Tema4: Familiarizare cu conceptul de iterativitate in Racket
+
+;;;P#2 Definiti o functie care calculeaza inversa unei liste.
+( define( rev-list l)
+   (do ((lista l (cdr lista))
+        (solutie '() (cons (car lista) solutie))
+        ((empty? lista) solutie)
+        )
+     )
+   )
+
+;(rev-list '(a b c d e))

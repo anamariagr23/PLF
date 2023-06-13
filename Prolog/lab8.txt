@@ -1,0 +1,54 @@
+studenti(ia2).
+studenti(ia3).
+
+studenti_buni(X):-
+    X = ia2.
+
+numar(0).
+numar(1).
+
+/*numar_par(X):- */
+
+hot( gigel ) .
+place(maria , ciocolata).
+place(maria , vin).
+place(gigel ,X):-
+	place(X, vin).
+poate_fura(X,Y):-
+	hot(X) , place(X,Y).
+/* pentru a genera urmatorul rezultat interpretorul prolog face urmatorii pasi:
+ * X = gigel si Y = X
+ * verifica daca hot(gigel) daca face parte din domeniul de definitie,
+ *  este adevarat si verifica mai departe
+ * daca place(gigel,X) exista , atunci va cauta daca place(X,vin) exista
+ * in final , dupa ce gaseste place(maria,vin) se face X = maria */
+
+
+
+tata(X,Y). /* X este tatal lui Y */
+mama(X,Y). /* X este mama lui Y */
+barbat(X).
+femeie(X).
+parinte(X,Y). /* X este parintele lui Y */
+diferit(X,Y). /* X este diferit de Y */
+
+barbat(mihai).
+femeie(claudia).
+fiu(ion,mihai) /*ion e fiul lui mihai*/
+fiu(ion,claudia)
+
+mama(X,Y):-
+    femeie(X), fiu(Y,X).
+
+tata(X, Y):-
+    barbat(X), fiu(Y,X).
+
+
+
+/*definire relatii*/
+este_mama(X):-
+    femeie(X), mama(X,Y).
+este_tata(X):-
+    barbat(X), tata(X,Y).
+este_fiu(X):-
+    barbat(X), 
